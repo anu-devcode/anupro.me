@@ -1,0 +1,114 @@
+.help-main,
+.site-footer,
+.site-header {
+  width: min(1120px, 92vw);
+  margin-inline: auto;
+}
+
+.help-hero {
+  min-height: auto;
+  padding-top: 4rem;
+}
+
+.help-hero p {
+  color: var(--muted);
+  max-width: 70ch;
+}
+
+.help-grid,
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.help-card {
+  border: 1px solid color-mix(in srgb, var(--surface-soft) 74%, white 8%);
+  background: color-mix(in srgb, var(--surface) 95%, transparent);
+  border-radius: 18px;
+  padding: 1rem;
+  box-shadow: var(--shadow);
+}
+
+.help-card ul {
+  margin: 0.8rem 0 0;
+  padding-left: 1.2rem;
+  color: var(--muted);
+}
+
+.faq-list {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.faq-list details {
+  border: 1px solid color-mix(in srgb, var(--surface-soft) 74%, white 8%);
+  background: color-mix(in srgb, var(--surface) 95%, transparent);
+  border-radius: 12px;
+  padding: 0.8rem 0.9rem;
+  box-shadow: var(--shadow);
+}
+
+.faq-list summary {
+  cursor: pointer;
+  font-weight: 600;
+  font-family: var(--font-head);
+}
+
+.faq-list p {
+  margin: 0.6rem 0 0;
+  color: var(--muted);
+}
+
+.process-list {
+  margin: 0;
+  padding-left: 1.2rem;
+  color: var(--muted);
+  display: grid;
+  gap: 0.45rem;
+}
+
+.contact-form {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.contact-form label {
+  display: grid;
+  gap: 0.35rem;
+  color: var(--muted);
+}
+
+.contact-form input,
+.contact-form textarea,
+.contact-form select {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--surface-soft) 74%, white 10%);
+  background: color-mix(in srgb, var(--surface-soft) 68%, transparent);
+  color: var(--text);
+  padding: 0.62rem 0.8rem;
+  font: inherit;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus,
+.contact-form select:focus {
+  outline: 2px solid var(--ring);
+}
+
+.status-text {
+  color: var(--muted);
+  min-height: 1.2rem;
+}
+
+.support-card a {
+  color: var(--accent-2);
+}
+
+@media (max-width: 920px) {
+  .help-grid,
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}

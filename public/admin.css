@@ -1,0 +1,214 @@
+.admin-body {
+  display: grid;
+  place-items: start center;
+  min-height: 100vh;
+  padding: 1.6rem 0;
+}
+
+.admin-shell {
+  width: min(1120px, 94vw);
+}
+
+.admin-card {
+  border: 1px solid color-mix(in srgb, var(--surface-soft) 74%, white 8%);
+  background: color-mix(in srgb, var(--surface) 96%, transparent);
+  border-radius: 18px;
+  padding: 1.2rem;
+  box-shadow: var(--shadow);
+}
+
+.hidden {
+  display: none;
+}
+
+.stack {
+  display: grid;
+  gap: 0.8rem;
+}
+
+label {
+  display: grid;
+  gap: 0.35rem;
+  color: var(--muted);
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--surface-soft) 74%, white 10%);
+  background: color-mix(in srgb, var(--surface-soft) 68%, transparent);
+  color: var(--text);
+  padding: 0.62rem 0.8rem;
+  font: inherit;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 2px solid var(--ring);
+  border-color: color-mix(in srgb, var(--accent) 40%, white 4%);
+}
+
+.admin-head,
+.list-head,
+.form-actions,
+.head-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+}
+
+.admin-grid {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 1rem;
+}
+
+.card-subpanel {
+  border: 1px solid color-mix(in srgb, var(--surface-soft) 74%, white 8%);
+  border-radius: 14px;
+  padding: 0.9rem;
+  background: color-mix(in srgb, var(--surface) 96%, transparent);
+}
+
+.admin-project-list {
+  margin-top: 0.85rem;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.project-row {
+  border: 1px solid color-mix(in srgb, var(--surface-soft) 74%, white 8%);
+  border-radius: 12px;
+  padding: 0.7rem;
+  background: color-mix(in srgb, var(--surface-soft) 68%, transparent);
+}
+
+.project-row h4,
+.project-row p {
+  margin: 0;
+}
+
+.project-row p {
+  color: var(--muted);
+}
+
+.row-meta,
+.row-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 0.55rem;
+}
+
+.mini-btn {
+  border-radius: 8px;
+  border: 1px solid color-mix(in srgb, var(--surface-soft) 74%, white 8%);
+  background: color-mix(in srgb, var(--surface) 95%, transparent);
+  color: var(--text);
+  padding: 0.35rem 0.58rem;
+  cursor: pointer;
+}
+
+.inline-check {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.inline-check input {
+  width: auto;
+}
+
+.error-text {
+  color: #ff7f7f;
+  min-height: 1.2rem;
+}
+
+.status-text {
+  color: var(--muted);
+  min-height: 1.2rem;
+}
+
+.muted-text {
+  color: var(--muted);
+}
+
+.import-panel,
+.analytics-panel,
+.messages-panel {
+  margin-top: 1rem;
+  padding-top: 0.9rem;
+  border-top: 1px dashed color-mix(in srgb, var(--surface-soft) 74%, white 8%);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.6rem;
+  margin-top: 0.75rem;
+}
+
+.stat-card {
+  border: 1px solid color-mix(in srgb, var(--surface-soft) 74%, white 8%);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--surface-soft) 66%, transparent);
+  padding: 0.6rem;
+}
+
+.stat-label,
+.stat-value {
+  margin: 0;
+}
+
+.stat-label {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.stat-value {
+  font-family: var(--font-head);
+  font-size: 1.1rem;
+}
+
+.message-row .message-subject {
+  font-weight: 700;
+  color: var(--text);
+}
+
+.inquiry-pill {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 0.2rem 0.55rem;
+  font-size: 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--surface-soft) 74%, white 8%);
+  background: color-mix(in srgb, var(--surface-soft) 68%, transparent);
+}
+
+.inquiry-pill.support {
+  color: #67d4ff;
+}
+
+.inquiry-pill.business {
+  color: #ffd084;
+}
+
+.inquiry-pill.dispute {
+  color: #ff9d9d;
+}
+
+a.mini-btn {
+  text-decoration: none;
+}
+
+@media (max-width: 960px) {
+  .admin-grid {
+    grid-template-columns: 1fr;
+  }
+}

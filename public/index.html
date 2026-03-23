@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anup Ro | Builder of Scalable Digital Products</title>
+    <meta
+      name="description"
+      content="Anup Ro builds high-performance backend systems, AI products, and modern web experiences. Explore deployed projects across platforms."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="noise-layer" aria-hidden="true"></div>
+    <header class="site-header">
+      <a class="brand" href="#top">anupro.me</a>
+      <nav class="main-nav" aria-label="Primary">
+        <a href="#projects">Projects</a>
+        <a href="#featured">Highlights</a>
+        <a href="#about">About</a>
+        <a href="/help">Help Center</a>
+        <a href="#connect">Connect</a>
+      </nav>
+      <button id="themeToggle" class="ghost-btn" aria-label="Toggle color mode">Light</button>
+    </header>
+
+    <main id="top">
+      <section class="hero section reveal">
+        <div class="hero-copy">
+          <p class="eyebrow">Developer. Builder. Systems Thinker.</p>
+          <h1>Creating products that scale, perform, and solve real-world problems.</h1>
+          <p class="subhead">
+            I design and ship backend-first digital products powered by AI and modern web stacks. This is my project launchpad.
+          </p>
+          <div class="hero-cta-row">
+            <a href="#projects" class="btn primary">Explore Projects</a>
+            <a href="#featured" class="btn secondary">View Work</a>
+          </div>
+        </div>
+        <div class="hero-panel" aria-hidden="true">
+          <div class="glow-orb orb-a"></div>
+          <div class="glow-orb orb-b"></div>
+          <div class="hero-metric-card">
+            <p class="metric-label">Live Projects</p>
+            <p class="metric-value" id="heroProjectCount">0</p>
+          </div>
+          <div class="hero-metric-card small">
+            <p class="metric-label">Focus</p>
+            <p class="metric-value">AI + Backend + Product</p>
+          </div>
+          <div class="hero-metric-card small">
+            <p class="metric-label">Project Clicks</p>
+            <p class="metric-value" id="heroProjectClicks">0</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="projects" class="section reveal">
+        <div class="section-heading">
+          <p class="eyebrow">Project Gateway</p>
+          <h2>Production-ready builds across platforms</h2>
+          <p>Browse deployed projects, tools, and experiments from one central hub.</p>
+        </div>
+        <div id="projectsGrid" class="projects-grid" aria-live="polite"></div>
+      </section>
+
+      <section id="featured" class="section reveal">
+        <div class="section-heading">
+          <p class="eyebrow">Highlights</p>
+          <h2>Featured projects with measurable outcomes</h2>
+        </div>
+        <div id="featuredGrid" class="featured-grid" aria-live="polite"></div>
+      </section>
+
+      <section id="about" class="section reveal about">
+        <div>
+          <p class="eyebrow">About</p>
+          <h2>I am Anup, focused on resilient systems and useful intelligence.</h2>
+        </div>
+        <p>
+          My work sits at the intersection of backend architecture, AI workflows, and product engineering. I care about speed,
+          reliability, and building systems that remain elegant under scale.
+        </p>
+      </section>
+
+      <section id="connect" class="section reveal connect">
+        <h2>Let’s build something valuable.</h2>
+        <p id="connectPitch">Open to collaborations, backend consulting, and building products with business impact.</p>
+        <div class="connect-links">
+          <a id="contactLink" class="btn primary" href="mailto:hello@anupro.me">Contact</a>
+          <a id="githubLink" class="btn secondary" href="https://github.com" target="_blank" rel="noreferrer">GitHub</a>
+          <a id="linkedinLink" class="btn secondary" href="https://www.linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a>
+          <a id="xLink" class="btn secondary hidden-link" href="https://x.com" target="_blank" rel="noreferrer">X</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>anupro.me · Developer Project Hub</p>
+      <p>&copy; <span id="year"></span> Anup Ro</p>
+    </footer>
+
+    <script src="/main.js" defer></script>
+  </body>
+</html>

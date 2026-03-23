@@ -1,0 +1,55 @@
+{
+  "projects": [
+    {
+      "id": "mn3frl8n-2h66u8jf",
+      "name": "Realtime Ops Monitor",
+      "description": "A low-latency observability dashboard for distributed services with smart anomaly hints.",
+      "url": "https://ops.anupro.me",
+      "tags": [
+        "backend",
+        "systems",
+        "monitoring"
+      ],
+      "platform": "Vercel",
+      "featured": true,
+      "visible": true,
+      "problem": "Teams lacked a simple way to identify service regressions quickly.",
+      "impact": "Reduced average triage time by 41% in internal tests.",
+      "metrics": "P95 query 120ms"
+    },
+    {
+      "id": "mn3frl8n-3kqbac88",
+      "name": "PromptForge Studio",
+      "description": "A project workspace for prompt testing, versioning, and A/B output comparison.",
+      "url": "https://forge.anupro.me",
+      "tags": [
+        "ai",
+        "web",
+        "productivity"
+      ],
+      "platform": "Netlify",
+      "featured": true,
+      "visible": true,
+      "problem": "Prompt iteration was inconsistent across teams.",
+      "impact": "Improved output consistency and reduced manual retries.",
+      "metrics": "32% faster iteration cycles"
+    },
+    {
+      "id": "mn3frl8n-g1xco112",
+      "name": "Edge Notes API",
+      "description": "A stateless notes backend optimized for global reads and lightweight auth.",
+      "url": "https://notes.anupro.me",
+      "tags": [
+        "api",
+        "edge",
+        "backend"
+      ],
+      "platform": "Cloudflare Workers",
+      "featured": false,
+      "visible": true,
+      "problem": "Needed globally fast note retrieval without heavyweight infra.",
+      "impact": "Consistent sub-100ms reads across test regions.",
+      "metrics": "Global avg latency 86ms"
+    }
+  ]
+}

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Help Center | anupro.me</title>
+    <meta
+      name="description"
+      content="Help Center for anupro.me: FAQs, safety guidelines, platform rules, dispute resolution, and contact support."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/help.css" />
+  </head>
+  <body>
+    <div class="noise-layer" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <a class="brand" href="/">anupro.me</a>
+      <nav class="main-nav" aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="#faqs">FAQs</a>
+        <a href="#safety">Safety</a>
+        <a href="#rules">Rules</a>
+        <a href="#disputes">Disputes</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button id="themeToggle" class="ghost-btn" aria-label="Toggle color mode">Light</button>
+    </header>
+
+    <main class="help-main">
+      <section class="section reveal help-hero">
+        <p class="eyebrow">Help Center</p>
+        <h1>Clarity, safety, and support for everyone using this platform.</h1>
+        <p>
+          Find quick answers, understand platform expectations, resolve disputes fairly, and reach us for support or business inquiries.
+        </p>
+      </section>
+
+      <section id="faqs" class="section reveal">
+        <div class="section-heading">
+          <p class="eyebrow">FAQs</p>
+          <h2>Frequently asked questions</h2>
+        </div>
+        <div class="faq-list">
+          <details>
+            <summary>How can I explore projects quickly?</summary>
+            <p>Use the main gateway cards on the homepage and open each project in a new tab from the Open Project button.</p>
+          </details>
+          <details>
+            <summary>How often is project information updated?</summary>
+            <p>Project content can be updated anytime through the admin dashboard and appears immediately after save.</p>
+          </details>
+          <details>
+            <summary>Can I request collaboration or consulting?</summary>
+            <p>Yes. Use the contact form and choose Business Inquiry. Include scope, timelines, and goals for a faster response.</p>
+          </details>
+          <details>
+            <summary>How do I report a broken link or inaccurate information?</summary>
+            <p>Submit a Support request with the project name, issue details, and a screenshot if possible.</p>
+          </details>
+        </div>
+      </section>
+
+      <section id="safety" class="section reveal help-grid">
+        <article class="help-card">
+          <p class="eyebrow">Safety Guidelines</p>
+          <h2>Stay secure and respectful</h2>
+          <ul>
+            <li>Never share passwords, API keys, or private credentials through forms.</li>
+            <li>Report suspicious links or impersonation immediately.</li>
+            <li>Use professional communication and avoid abusive language.</li>
+            <li>Do not submit malicious payloads or exploit attempts.</li>
+          </ul>
+        </article>
+
+        <article id="rules" class="help-card">
+          <p class="eyebrow">Platform Rules</p>
+          <h2>Usage standards</h2>
+          <ul>
+            <li>Respect intellectual property and project attribution.</li>
+            <li>Do not automate abusive traffic or spam requests.</li>
+            <li>Use provided contact channels for support and business topics.</li>
+            <li>Violations may lead to blocked access or ignored requests.</li>
+          </ul>
+        </article>
+      </section>
+
+      <section id="disputes" class="section reveal">
+        <div class="section-heading">
+          <p class="eyebrow">Dispute Resolution Process</p>
+          <h2>A transparent, fair escalation path</h2>
+        </div>
+        <ol class="process-list">
+          <li>Submit a Dispute request with clear facts and relevant evidence.</li>
+          <li>Initial response is provided with acknowledgement and ticket ID.</li>
+          <li>Review is conducted and outcome is shared with rationale.</li>
+          <li>If unresolved, one final review can be requested for reassessment.</li>
+        </ol>
+      </section>
+
+      <section id="contact" class="section reveal contact-grid">
+        <article class="help-card">
+          <p class="eyebrow">Contact Us</p>
+          <h2>Send a message</h2>
+          <form id="contactForm" class="contact-form">
+            <label>Full Name <input name="fullName" required /></label>
+            <label>Email <input name="email" type="email" required /></label>
+            <label>Inquiry Type
+              <select name="inquiryType" required>
+                <option value="support">Support</option>
+                <option value="business">Business Inquiry</option>
+                <option value="dispute">Dispute Resolution</option>
+              </select>
+            </label>
+            <label>Subject <input name="subject" required /></label>
+            <label>Message <textarea name="message" rows="5" required></textarea></label>
+            <button type="submit" class="btn primary">Submit Request</button>
+            <p id="contactStatus" class="status-text" role="status"></p>
+          </form>
+        </article>
+
+        <article class="help-card support-card">
+          <p class="eyebrow">Support Email</p>
+          <h2>Direct support channel</h2>
+          <p>
+            For quick assistance, email
+            <a id="supportEmailLink" href="mailto:support@anupro.me">support@anupro.me</a>
+          </p>
+          <p class="eyebrow">Business Inquiry Section</p>
+          <p>
+            For partnerships, consulting, and product collaboration requests, use Business Inquiry in the form above or email
+            <a id="businessEmailLink" href="mailto:business@anupro.me">business@anupro.me</a>.
+          </p>
+        </article>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>anupro.me · Help Center</p>
+      <p>&copy; <span id="year"></span> Anup Ro</p>
+    </footer>
+
+    <script src="/help.js" defer></script>
+  </body>
+</html>

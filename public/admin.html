@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin | anupro.me</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/admin.css" />
+  </head>
+  <body class="admin-body">
+    <main class="admin-shell">
+      <section id="loginCard" class="admin-card">
+        <h1>Admin Login</h1>
+        <p>Sign in to manage projects and visibility on anupro.me.</p>
+        <form id="loginForm" class="stack">
+          <label>
+            Username
+            <input name="username" required autocomplete="username" />
+          </label>
+          <label>
+            Password
+            <input name="password" type="password" required autocomplete="current-password" />
+          </label>
+          <button class="btn primary" type="submit">Sign In</button>
+          <p id="loginError" class="error-text" role="alert"></p>
+        </form>
+      </section>
+
+      <section id="dashboard" class="admin-card hidden">
+        <div class="admin-head">
+          <h1>Project Dashboard</h1>
+          <div class="head-actions">
+            <button id="logoutBtn" class="btn secondary" type="button">Logout</button>
+          </div>
+        </div>
+
+        <div class="admin-grid">
+          <section class="stack">
+            <form id="projectForm" class="stack card-subpanel">
+              <h2 id="formTitle">Add Project</h2>
+              <input name="id" type="hidden" />
+              <label>Project Name <input name="name" required /></label>
+              <label>Description <textarea name="description" rows="3" required></textarea></label>
+              <label>URL <input name="url" type="url" placeholder="https://..." required /></label>
+              <label>Tags (comma-separated) <input name="tags" placeholder="ai, backend, web" /></label>
+              <label>Platform <input name="platform" placeholder="Vercel, Netlify, etc." /></label>
+              <label>Problem Solved <textarea name="problem" rows="2"></textarea></label>
+              <label>Impact <textarea name="impact" rows="2"></textarea></label>
+              <label>Metrics <input name="metrics" placeholder="e.g. P95 120ms" /></label>
+              <label class="inline-check"><input name="featured" type="checkbox" /> Featured</label>
+              <label class="inline-check"><input name="visible" type="checkbox" checked /> Publicly Visible</label>
+              <div class="form-actions">
+                <button class="btn primary" type="submit">Save Project</button>
+                <button id="resetBtn" class="btn secondary" type="button">Reset</button>
+              </div>
+              <p id="formStatus" class="status-text" role="status"></p>
+            </form>
+
+            <form id="settingsForm" class="stack card-subpanel">
+              <h2>Public Profile Settings</h2>
+              <label>Owner Name <input name="ownerName" placeholder="Your name" /></label>
+              <label>Contact Email <input name="contactEmail" type="email" placeholder="you@anupro.me" /></label>
+              <label>GitHub URL <input name="github" type="url" placeholder="https://github.com/username" /></label>
+              <label>LinkedIn URL <input name="linkedin" type="url" placeholder="https://linkedin.com/in/..." /></label>
+              <label>X URL (optional) <input name="x" type="url" placeholder="https://x.com/username" /></label>
+              <div class="form-actions">
+                <button class="btn primary" type="submit">Save Settings</button>
+              </div>
+              <p id="settingsStatus" class="status-text" role="status"></p>
+            </form>
+          </section>
+
+          <section class="card-subpanel">
+            <div class="list-head">
+              <h2>Projects</h2>
+              <p>Drag-free reorder with move controls for predictable updates.</p>
+            </div>
+            <div id="adminProjects" class="admin-project-list"></div>
+
+            <form id="importForm" class="stack import-panel">
+              <h3>Bulk Import Projects</h3>
+              <p class="muted-text">Paste JSON array for faster setup.</p>
+              <label>Mode
+                <select name="mode">
+                  <option value="append">Append</option>
+                  <option value="replace">Replace existing</option>
+                </select>
+              </label>
+              <label>Projects JSON
+                <textarea name="json" rows="7" placeholder='[{"name":"Project","description":"...","url":"https://...","tags":["ai"],"platform":"Vercel","featured":true,"visible":true}]'></textarea>
+              </label>
+              <div class="form-actions">
+                <button class="btn secondary" type="submit">Import JSON</button>
+              </div>
+              <p id="importStatus" class="status-text" role="status"></p>
+            </form>
+
+            <div class="analytics-panel">
+              <div class="list-head">
+                <h3>Analytics</h3>
+                <button id="refreshAnalyticsBtn" class="mini-btn" type="button">Refresh</button>
+              </div>
+              <div class="stats-grid">
+                <article class="stat-card">
+                  <p class="stat-label">Page Views</p>
+                  <p class="stat-value" id="statPageViews">0</p>
+                </article>
+                <article class="stat-card">
+                  <p class="stat-label">Project Clicks</p>
+                  <p class="stat-value" id="statProjectClicks">0</p>
+                </article>
+                <article class="stat-card">
+                  <p class="stat-label">Bookmarks</p>
+                  <p class="stat-value" id="statBookmarks">0</p>
+                </article>
+              </div>
+              <p id="analyticsUpdatedAt" class="muted-text">Last updated: --</p>
+              <div id="topProjectsAnalytics" class="admin-project-list"></div>
+            </div>
+
+            <div class="messages-panel">
+              <div class="list-head">
+                <h3>Messages Inbox</h3>
+                <button id="refreshMessagesBtn" class="mini-btn" type="button">Refresh</button>
+              </div>
+              <p id="messagesSummary" class="muted-text">No messages loaded.</p>
+              <div id="adminMessages" class="admin-project-list"></div>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <script src="/admin.js" defer></script>
+  </body>
+</html>

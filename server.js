@@ -602,6 +602,8 @@ function printStartupPreflight() {
   for (const issue of issues) {
     console.warn(`[startup] - ${issue}`);
   }
+  const hashPrefix = ADMIN_PASSWORD_HASH ? ADMIN_PASSWORD_HASH.slice(0, 4) : '(empty)';
+  console.warn(`[startup] Observed ADMIN_PASSWORD_HASH length: ${String(ADMIN_PASSWORD_HASH || '').length}, prefix: ${hashPrefix}`);
   console.warn('[startup] Generate ADMIN_PASSWORD_HASH using: node -e "const bcrypt=require(\'bcryptjs\'); console.log(bcrypt.hashSync(\'YOUR_STRONG_PASSWORD\', 10));"');
 }
 

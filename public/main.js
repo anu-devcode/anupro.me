@@ -41,8 +41,9 @@ if (navToggle && mobileNav) {
       closeTimerId = null;
     }
     mobileNav.classList.remove('is-open');
+    navToggle.classList.remove('is-open');
     navToggle.setAttribute('aria-expanded', 'false');
-    navToggle.textContent = 'Menu';
+    navToggle.setAttribute('aria-label', 'Open navigation menu');
     setBodyScrollLock(false);
     closeTimerId = window.setTimeout(() => {
       mobileNav.hidden = true;
@@ -58,8 +59,9 @@ if (navToggle && mobileNav) {
     window.requestAnimationFrame(() => {
       mobileNav.classList.add('is-open');
     });
+    navToggle.classList.add('is-open');
     navToggle.setAttribute('aria-expanded', 'true');
-    navToggle.textContent = 'Close';
+    navToggle.setAttribute('aria-label', 'Close navigation menu');
     setBodyScrollLock(true);
   };
 

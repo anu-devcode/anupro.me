@@ -17,6 +17,7 @@ const IS_PROD = process.env.NODE_ENV === 'production';
 const TRUST_PROXY = process.env.TRUST_PROXY === 'true' || IS_PROD;
 const BCRYPT_HASH_PATTERN = /^\$2[aby]\$\d{2}\$[./A-Za-z0-9]{53}$/;
 const ADMIN_HASH_IS_BCRYPT = BCRYPT_HASH_PATTERN.test(ADMIN_PASSWORD_HASH);
+const REQUIRED_ENV_KEYS = ['NODE_ENV', 'PORT', 'APP_DOMAIN', 'TRUST_PROXY', 'ADMIN_USER', 'ADMIN_PASSWORD_HASH', 'SESSION_SECRET'];
 
 const DATA_DIR = path.join(__dirname, 'data');
 const PROJECTS_FILE = path.join(DATA_DIR, 'projects.json');
@@ -564,7 +565,48 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
+function getStartupConfigIssues() {
+  const missingRequiredKeys = REQUIRED_ENV_KEYS.filter((key) => {
+    const raw = process.env[key];
+    return typeof raw !== 'string' || raw.trim() === '';
+  });
+
+  const issues = [];
+  if (missingRequiredKeys.length) {
+    issues.push(`Missing required environment variables: ${missingRequiredKeys.join(', ')}`);
+  }
+
+  if (SESSION_SECRET === 'replace-this-session-secret') {
+    issues.push('SESSION_SECRET is using a default value.');
+  }
+
+  if (ADMIN_PASSWORD_HASH === DEFAULT_ADMIN_PASSWORD_HASH) {
+    issues.push('ADMIN_PASSWORD_HASH is using a development default.');
+  }
+
+  if (!ADMIN_HASH_IS_BCRYPT) {
+    issues.push('ADMIN_PASSWORD_HASH is not a valid bcrypt hash.');
+  }
+
+  return issues;
+}
+
+function printStartupPreflight() {
+  const issues = getStartupConfigIssues();
+  if (!issues.length) {
+    console.log('[startup] Environment preflight passed.');
+    return;
+  }
+
+  console.warn('[startup] Environment preflight found configuration issues:');
+  for (const issue of issues) {
+    console.warn(`[startup] - ${issue}`);
+  }
+  console.warn('[startup] Generate ADMIN_PASSWORD_HASH using: node -e "const bcrypt=require(\'bcryptjs\'); console.log(bcrypt.hashSync(\'YOUR_STRONG_PASSWORD\', 10));"');
+}
+
 ensureDataFile();
+printStartupPreflight();
 
 if (SESSION_SECRET === 'replace-this-session-secret') {
   console.warn('[security] SESSION_SECRET is using a default value. Set a strong secret in environment variables.');
@@ -591,6 +633,14 @@ if (IS_PROD && SESSION_SECRET === 'replace-this-session-secret') {
 if (IS_PROD && ADMIN_PASSWORD_HASH === DEFAULT_ADMIN_PASSWORD_HASH) {
   console.error('[security] Refusing to start in production with default ADMIN_PASSWORD_HASH.');
   process.exit(1);
+}
+
+if (IS_PROD) {
+  const startupIssues = getStartupConfigIssues();
+  if (startupIssues.length) {
+    console.error('[security] Refusing to start in production due to invalid environment configuration.');
+    process.exit(1);
+  }
 }
 
 app.listen(PORT, () => {

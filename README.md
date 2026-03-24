@@ -52,8 +52,17 @@ node -e "const bcrypt=require('bcryptjs'); console.log(bcrypt.hashSync('YOUR_STR
 - The app refuses to start in production if:
   - `SESSION_SECRET` is left at default
   - `ADMIN_PASSWORD_HASH` is left at default
+- The app now prints an environment preflight summary at startup to show missing or invalid env configuration.
 - Do not commit `.env`.
 - Use HTTPS in production.
+
+## Troubleshooting Restarts (503)
+If your platform logs show repeated restarts and `503 Service Unavailable`:
+1. Check startup logs for `[startup] Environment preflight found configuration issues`.
+2. Ensure all required variables are set in your hosting provider (not only in local `.env`):
+    - `NODE_ENV`, `PORT`, `APP_DOMAIN`, `TRUST_PROXY`, `ADMIN_USER`, `ADMIN_PASSWORD_HASH`, `SESSION_SECRET`
+3. Confirm `ADMIN_PASSWORD_HASH` is a bcrypt hash (starts with `$2...`), not plaintext.
+4. Redeploy after updating variables.
 
 ## Deployment Checklist
 1. Set all required environment variables.

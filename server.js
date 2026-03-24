@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
@@ -13,6 +15,8 @@ const ADMIN_PASSWORD_HASH = process.env.ADMIN_PASSWORD_HASH || DEFAULT_ADMIN_PAS
 const SESSION_SECRET = process.env.SESSION_SECRET || 'replace-this-session-secret';
 const IS_PROD = process.env.NODE_ENV === 'production';
 const TRUST_PROXY = process.env.TRUST_PROXY === 'true' || IS_PROD;
+const BCRYPT_HASH_PATTERN = /^\$2[aby]\$\d{2}\$[./A-Za-z0-9]{53}$/;
+const ADMIN_HASH_IS_BCRYPT = BCRYPT_HASH_PATTERN.test(ADMIN_PASSWORD_HASH);
 
 const DATA_DIR = path.join(__dirname, 'data');
 const PROJECTS_FILE = path.join(DATA_DIR, 'projects.json');
@@ -290,6 +294,10 @@ app.post('/api/auth/login', async (req, res) => {
     return res.status(400).json({ message: 'Username and password are required.' });
   }
 
+  if (!ADMIN_HASH_IS_BCRYPT) {
+    return res.status(500).json({ message: 'Server auth configuration is invalid.' });
+  }
+
   const usernameOk = username === ADMIN_USER;
   const passwordOk = await bcrypt.compare(password, ADMIN_PASSWORD_HASH);
 
@@ -564,6 +572,15 @@ if (SESSION_SECRET === 'replace-this-session-secret') {
 
 if (ADMIN_PASSWORD_HASH === DEFAULT_ADMIN_PASSWORD_HASH) {
   console.warn('[security] ADMIN_PASSWORD_HASH is using a development default. Set ADMIN_PASSWORD_HASH in environment variables.');
+}
+
+if (!ADMIN_HASH_IS_BCRYPT) {
+  const message = '[security] ADMIN_PASSWORD_HASH is not a valid bcrypt hash. Generate one and set it in environment variables.';
+  if (IS_PROD) {
+    console.error(message);
+    process.exit(1);
+  }
+  console.warn(message);
 }
 
 if (IS_PROD && SESSION_SECRET === 'replace-this-session-secret') {

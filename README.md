@@ -39,7 +39,7 @@ From `.env.example`:
 - `APP_DOMAIN=anupro.me`
 - `TRUST_PROXY=true` (recommended behind reverse proxy / load balancer)
 - `ADMIN_USER=admin`
-- `ADMIN_PASSWORD_HASH=<bcrypt hash>`
+- `ADMIN_PASSWORD_HASH=<bcrypt hash starting with $2...>`
 - `SESSION_SECRET=<strong random secret>`
 
 ### Generate Admin Password Hash

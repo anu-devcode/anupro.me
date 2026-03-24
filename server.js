@@ -51,7 +51,17 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(express.static(path.join(__dirname, 'public'), { maxAge: '1d', etag: true }));
+app.use(
+  express.static(path.join(__dirname, 'public'), {
+    maxAge: '1d',
+    etag: true,
+    setHeaders: (res, filePath) => {
+      if (filePath.endsWith('.html')) {
+        res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+      }
+    }
+  })
+);
 
 function ensureDataFile() {
   if (!fs.existsSync(DATA_DIR)) {
@@ -106,7 +116,7 @@ function ensureDataFile() {
 
   if (!fs.existsSync(SETTINGS_FILE)) {
     const starterSettings = {
-      ownerName: 'Anup Ro',
+      ownerName: 'Anwar',
       contactEmail: 'hello@anupro.me',
       social: {
         github: 'https://github.com',
@@ -204,7 +214,7 @@ function sanitizeProjectPayload(payload) {
 function sanitizeSettingsPayload(payload) {
   const social = payload && payload.social ? payload.social : {};
   return {
-    ownerName: String(payload.ownerName || 'Anup Ro').trim(),
+    ownerName: String(payload.ownerName || 'Anwar').trim(),
     contactEmail: String(payload.contactEmail || 'hello@anupro.me').trim(),
     social: {
       github: String(social.github || '').trim(),

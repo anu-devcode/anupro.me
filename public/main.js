@@ -266,9 +266,30 @@ function renderProjects(projects) {
 
 async function loadProjects() {
   try {
-    const response = await fetch('/api/projects');
-    if (!response.ok) throw new Error('Failed to load projects');
-    const data = await response.json();
+    const fetchProjects = async (url) => {
+      const response = await fetch(url, {
+        method: 'GET',
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`Projects request failed with status ${response.status}`);
+      }
+
+      return response.json();
+    };
+
+    let data;
+    try {
+      data = await fetchProjects('/api/projects');
+    } catch {
+      const retryUrl = `/api/projects?ts=${Date.now()}`;
+      data = await fetchProjects(retryUrl);
+    }
+
     const projects = data.projects || [];
     const settings = data.settings || null;
     const stats = data.stats || {};
@@ -276,6 +297,7 @@ async function loadProjects() {
     heroProjectClicks.textContent = String(stats.totalProjectClicks || 0);
     renderProjects(projects);
   } catch (error) {
+    console.error('[projects] load failed:', error);
     projectsGrid.innerHTML = '<p>Could not load projects right now.</p>';
   }
 }

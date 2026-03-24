@@ -504,12 +504,22 @@ h1 {
 }
 
 .site-footer {
-  padding: 2rem 0 3rem;
+  margin-top: 2.2rem;
+  padding: 1.1rem 1.2rem;
   color: var(--muted);
   display: flex;
   justify-content: space-between;
   gap: 1rem;
   flex-wrap: wrap;
+  border: 1px solid var(--border-soft);
+  border-radius: 16px;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--surface-soft) 74%, transparent), color-mix(in srgb, var(--surface) 92%, transparent));
+  box-shadow: var(--shadow);
+}
+
+.site-footer p {
+  margin: 0;
 }
 
 .reveal {
@@ -570,6 +580,10 @@ h1 {
     overflow: hidden;
   }
 
+  body {
+    padding-top: 78px;
+  }
+
   .hero,
   .about {
     grid-template-columns: 1fr;
@@ -600,14 +614,18 @@ h1 {
     display: grid;
     gap: 0.15rem;
     width: min(1120px, 92vw);
-    margin: 0.7rem auto 0;
+    margin: 0;
     padding: 0.5rem;
     border: 1px solid color-mix(in srgb, var(--surface-soft) 68%, white 8%);
     border-radius: 14px;
     background: color-mix(in srgb, var(--surface) 94%, transparent);
     box-shadow: var(--shadow);
+    position: fixed;
+    left: 50%;
+    top: 74px;
+    transform: translateX(-50%) translateY(-8px) scale(0.985);
+    z-index: 45;
     opacity: 0;
-    transform: translateY(-8px) scale(0.985);
     transform-origin: top center;
     pointer-events: none;
     transition: opacity 0.22s ease, transform 0.22s ease;
@@ -615,7 +633,7 @@ h1 {
 
   .mobile-nav.is-open {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateX(-50%) translateY(0) scale(1);
     pointer-events: auto;
   }
 
@@ -642,6 +660,11 @@ h1 {
   }
 
   .site-header {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(1120px, 92vw);
+    margin-top: 0;
     justify-content: space-between;
   }
 }

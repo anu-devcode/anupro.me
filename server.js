@@ -4,20 +4,16 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const session = require('express-session');
-const bcrypt = require('bcryptjs');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 const DOMAIN = process.env.APP_DOMAIN || 'anupro.me';
 const ADMIN_USER = process.env.ADMIN_USER || 'admin';
-const DEFAULT_ADMIN_PASSWORD_HASH = '$2a$10$i.rwNe91p5W7.HsZeHhlBOlx3CsS.etn6snpKQ1ul9oMdRxg9KOyK';
-const ADMIN_PASSWORD_HASH = process.env.ADMIN_PASSWORD_HASH || DEFAULT_ADMIN_PASSWORD_HASH;
+const ADMIN_PASSWORD = String(process.env.ADMIN_PASSWORD || 'admin123').trim();
 const SESSION_SECRET = process.env.SESSION_SECRET || 'replace-this-session-secret';
 const IS_PROD = process.env.NODE_ENV === 'production';
 const TRUST_PROXY = process.env.TRUST_PROXY === 'true' || IS_PROD;
-const BCRYPT_HASH_PATTERN = /^\$2[aby]\$\d{2}\$[./A-Za-z0-9]{53}$/;
-const ADMIN_HASH_IS_BCRYPT = BCRYPT_HASH_PATTERN.test(ADMIN_PASSWORD_HASH);
-const REQUIRED_ENV_KEYS = ['NODE_ENV', 'PORT', 'APP_DOMAIN', 'TRUST_PROXY', 'ADMIN_USER', 'ADMIN_PASSWORD_HASH', 'SESSION_SECRET'];
+const REQUIRED_ENV_KEYS = ['NODE_ENV', 'PORT', 'APP_DOMAIN', 'TRUST_PROXY', 'ADMIN_USER', 'ADMIN_PASSWORD', 'SESSION_SECRET'];
 
 const DATA_DIR = path.join(__dirname, 'data');
 const PROJECTS_FILE = path.join(DATA_DIR, 'projects.json');
@@ -295,12 +291,12 @@ app.post('/api/auth/login', async (req, res) => {
     return res.status(400).json({ message: 'Username and password are required.' });
   }
 
-  if (!ADMIN_HASH_IS_BCRYPT) {
+  if (!ADMIN_PASSWORD) {
     return res.status(500).json({ message: 'Server auth configuration is invalid.' });
   }
 
   const usernameOk = username === ADMIN_USER;
-  const passwordOk = await bcrypt.compare(password, ADMIN_PASSWORD_HASH);
+  const passwordOk = password === ADMIN_PASSWORD;
 
   if (!usernameOk || !passwordOk) {
     return res.status(401).json({ message: 'Invalid credentials.' });
@@ -580,12 +576,8 @@ function getStartupConfigIssues() {
     issues.push('SESSION_SECRET is using a default value.');
   }
 
-  if (ADMIN_PASSWORD_HASH === DEFAULT_ADMIN_PASSWORD_HASH) {
-    issues.push('ADMIN_PASSWORD_HASH is using a development default.');
-  }
-
-  if (!ADMIN_HASH_IS_BCRYPT) {
-    issues.push('ADMIN_PASSWORD_HASH is not a valid bcrypt hash.');
+  if (!ADMIN_PASSWORD) {
+    issues.push('ADMIN_PASSWORD is empty. Set ADMIN_PASSWORD in environment variables.');
   }
 
   return issues;
@@ -602,9 +594,6 @@ function printStartupPreflight() {
   for (const issue of issues) {
     console.warn(`[startup] - ${issue}`);
   }
-  const hashPrefix = ADMIN_PASSWORD_HASH ? ADMIN_PASSWORD_HASH.slice(0, 4) : '(empty)';
-  console.warn(`[startup] Observed ADMIN_PASSWORD_HASH length: ${String(ADMIN_PASSWORD_HASH || '').length}, prefix: ${hashPrefix}`);
-  console.warn('[startup] Generate ADMIN_PASSWORD_HASH using: node -e "const bcrypt=require(\'bcryptjs\'); console.log(bcrypt.hashSync(\'YOUR_STRONG_PASSWORD\', 10));"');
 }
 
 ensureDataFile();
@@ -614,12 +603,8 @@ if (SESSION_SECRET === 'replace-this-session-secret') {
   console.warn('[security] SESSION_SECRET is using a default value. Set a strong secret in environment variables.');
 }
 
-if (ADMIN_PASSWORD_HASH === DEFAULT_ADMIN_PASSWORD_HASH) {
-  console.warn('[security] ADMIN_PASSWORD_HASH is using a development default. Set ADMIN_PASSWORD_HASH in environment variables.');
-}
-
-if (!ADMIN_HASH_IS_BCRYPT) {
-  const message = '[security] ADMIN_PASSWORD_HASH is not a valid bcrypt hash. Generate one and set it in environment variables.';
+if (!ADMIN_PASSWORD) {
+  const message = '[security] ADMIN_PASSWORD is empty. Set ADMIN_PASSWORD in environment variables.';
   if (IS_PROD) {
     console.error(message);
     process.exit(1);
@@ -629,11 +614,6 @@ if (!ADMIN_HASH_IS_BCRYPT) {
 
 if (IS_PROD && SESSION_SECRET === 'replace-this-session-secret') {
   console.error('[security] Refusing to start in production with default SESSION_SECRET.');
-  process.exit(1);
-}
-
-if (IS_PROD && ADMIN_PASSWORD_HASH === DEFAULT_ADMIN_PASSWORD_HASH) {
-  console.error('[security] Refusing to start in production with default ADMIN_PASSWORD_HASH.');
   process.exit(1);
 }
 

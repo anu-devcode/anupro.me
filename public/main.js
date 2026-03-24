@@ -8,6 +8,9 @@ const contactLink = document.getElementById('contactLink');
 const githubLink = document.getElementById('githubLink');
 const linkedinLink = document.getElementById('linkedinLink');
 const xLink = document.getElementById('xLink');
+const footerGithubLink = document.getElementById('footerGithubLink');
+const footerLinkedinLink = document.getElementById('footerLinkedinLink');
+const footerXLink = document.getElementById('footerXLink');
 
 const savedTheme = localStorage.getItem('theme');
 if (savedTheme) {
@@ -182,17 +185,26 @@ function applySettings(settings) {
 
   if (settings.social && settings.social.github) {
     githubLink.href = settings.social.github;
+    if (footerGithubLink) footerGithubLink.href = settings.social.github;
   }
 
   if (settings.social && settings.social.linkedin) {
     linkedinLink.href = settings.social.linkedin;
+    if (footerLinkedinLink) footerLinkedinLink.href = settings.social.linkedin;
   }
 
   if (settings.social && settings.social.x) {
     xLink.href = settings.social.x;
     xLink.classList.remove('hidden-link');
+    if (footerXLink) {
+      footerXLink.href = settings.social.x;
+      footerXLink.classList.remove('hidden-link');
+    }
   } else {
     xLink.classList.add('hidden-link');
+    if (footerXLink) {
+      footerXLink.classList.add('hidden-link');
+    }
   }
 }
 

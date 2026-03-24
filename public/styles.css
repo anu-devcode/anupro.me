@@ -4,27 +4,40 @@
   --hero-title-size: clamp(2.2rem, 6vw, 4.2rem);
   --hero-title-leading: 1.04;
   --hero-subhead-size: clamp(1rem, 1.5vw, 1.22rem);
-  --bg: #0d1117;
-  --surface: #121926;
-  --surface-soft: #1b2436;
-  --text: #e6ebf2;
-  --muted: #9aa7bd;
-  --accent: #28c4a8;
-  --accent-2: #35e8c6;
-  --ring: rgba(53, 232, 198, 0.35);
-  --shadow: 0 22px 50px rgba(0, 0, 0, 0.35);
+  --motion-fast: 220ms;
+  --motion-medium: 420ms;
+  --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --bg: #070d18;
+  --surface: #101a2f;
+  --surface-soft: #182744;
+  --text: #edf3ff;
+  --muted: #9cb0ce;
+  --accent: #2dd4bf;
+  --accent-2: #60a5fa;
+  --accent-3: #f59e0b;
+  --ring: rgba(45, 212, 191, 0.32);
+  --border-soft: rgba(130, 162, 222, 0.3);
+  --bg-glow-a: rgba(96, 165, 250, 0.22);
+  --bg-glow-b: rgba(45, 212, 191, 0.18);
+  --bg-glow-c: rgba(245, 158, 11, 0.12);
+  --shadow: 0 24px 48px rgba(2, 8, 20, 0.44);
 }
 
 :root[data-theme='light'] {
-  --bg: #f5f8ff;
+  --bg: #f4f7fb;
   --surface: #ffffff;
-  --surface-soft: #edf2ff;
-  --text: #10192b;
-  --muted: #4f5d75;
-  --accent: #0e9f85;
-  --accent-2: #12b79a;
-  --ring: rgba(14, 159, 133, 0.25);
-  --shadow: 0 22px 44px rgba(15, 35, 67, 0.12);
+  --surface-soft: #e8eef8;
+  --text: #0f1a2e;
+  --muted: #4c5f7e;
+  --accent: #0f9f91;
+  --accent-2: #2563eb;
+  --accent-3: #d97706;
+  --ring: rgba(15, 159, 145, 0.2);
+  --border-soft: rgba(92, 118, 164, 0.24);
+  --bg-glow-a: rgba(37, 99, 235, 0.14);
+  --bg-glow-b: rgba(15, 159, 145, 0.12);
+  --bg-glow-c: rgba(217, 119, 6, 0.08);
+  --shadow: 0 20px 36px rgba(16, 34, 58, 0.14);
 }
 
 * {
@@ -37,13 +50,17 @@ body {
   min-height: 100%;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: var(--font-body);
   color: var(--text);
   background:
-    radial-gradient(circle at 20% 10%, rgba(40, 196, 168, 0.14), transparent 28%),
-    radial-gradient(circle at 80% 0%, rgba(53, 232, 198, 0.12), transparent 20%),
-    radial-gradient(circle at 80% 80%, rgba(40, 196, 168, 0.08), transparent 26%),
+    radial-gradient(circle at 14% 8%, var(--bg-glow-a), transparent 30%),
+    radial-gradient(circle at 82% 0%, var(--bg-glow-b), transparent 24%),
+    radial-gradient(circle at 76% 82%, var(--bg-glow-c), transparent 28%),
     var(--bg);
   line-height: 1.5;
   overflow-x: hidden;
@@ -74,8 +91,8 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  background: color-mix(in srgb, var(--surface) 84%, transparent);
-  border: 1px solid color-mix(in srgb, var(--surface-soft) 60%, white 10%);
+  background: color-mix(in srgb, var(--surface) 86%, transparent);
+  border: 1px solid var(--border-soft);
   border-radius: 18px;
   padding: 0.75rem 1rem;
   box-shadow: var(--shadow);
@@ -112,14 +129,25 @@ body {
   color: var(--muted);
   text-decoration: none;
   font-weight: 500;
+  transition: color var(--motion-fast) ease;
 }
 
 .main-nav a:hover {
   color: var(--text);
 }
 
+.main-nav a.active-nav-link {
+  color: var(--text);
+  text-shadow: 0 0 16px color-mix(in srgb, var(--accent-2) 38%, transparent);
+}
+
 .section {
   padding: 5rem 0;
+}
+
+.section:not(.hero) {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 660px;
 }
 
 .hero {
@@ -209,9 +237,9 @@ h1 {
 }
 
 .btn.primary {
-  color: #06251f;
-  background: linear-gradient(120deg, var(--accent), var(--accent-2));
-  box-shadow: 0 10px 24px color-mix(in srgb, var(--accent) 36%, transparent);
+  color: #051626;
+  background: linear-gradient(130deg, var(--accent), var(--accent-2));
+  box-shadow: 0 12px 24px color-mix(in srgb, var(--accent-2) 30%, transparent);
 }
 
 .btn.primary:hover {
@@ -221,14 +249,14 @@ h1 {
 .btn.secondary,
 .ghost-btn {
   color: var(--text);
-  border: 1px solid color-mix(in srgb, var(--surface-soft) 72%, white 10%);
-  background: color-mix(in srgb, var(--surface) 90%, transparent);
+  border: 1px solid var(--border-soft);
+  background: color-mix(in srgb, var(--surface) 91%, transparent);
 }
 
 .hero-panel {
   position: relative;
   min-height: 320px;
-  border: 1px solid color-mix(in srgb, var(--surface-soft) 74%, white 6%);
+  border: 1px solid var(--border-soft);
   border-radius: 24px;
   padding: 1.3rem;
   background:
@@ -265,7 +293,7 @@ h1 {
 .hero-metric-card {
   position: relative;
   background: color-mix(in srgb, var(--surface-soft) 76%, transparent);
-  border: 1px solid color-mix(in srgb, var(--surface-soft) 74%, white 12%);
+  border: 1px solid color-mix(in srgb, var(--surface-soft) 74%, white 8%);
   border-radius: 16px;
   padding: 1rem;
   margin-bottom: 0.8rem;
@@ -310,7 +338,7 @@ h1 {
 
 .project-card,
 .featured-card {
-  border: 1px solid color-mix(in srgb, var(--surface-soft) 74%, white 8%);
+  border: 1px solid var(--border-soft);
   background: color-mix(in srgb, var(--surface) 95%, transparent);
   border-radius: 18px;
   padding: 1rem;
@@ -319,10 +347,16 @@ h1 {
   transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
+.card-entrance {
+  animation: cardRiseIn var(--motion-medium) var(--motion-ease) both;
+  animation-delay: calc(var(--stagger, 0) * 45ms);
+  will-change: transform, opacity;
+}
+
 .project-card:hover,
 .featured-card:hover {
   transform: translateY(-4px);
-  border-color: color-mix(in srgb, var(--accent) 34%, white 12%);
+  border-color: color-mix(in srgb, var(--accent-2) 40%, white 14%);
 }
 
 .card-head {
@@ -334,8 +368,8 @@ h1 {
 
 .platform-pill {
   font-size: 0.72rem;
-  color: var(--accent-2);
-  border: 1px solid color-mix(in srgb, var(--accent) 44%, transparent);
+  color: color-mix(in srgb, var(--accent-2) 74%, var(--text) 26%);
+  border: 1px solid color-mix(in srgb, var(--accent-2) 42%, transparent);
   padding: 0.2rem 0.5rem;
   border-radius: 999px;
   white-space: nowrap;
@@ -356,7 +390,7 @@ h1 {
 .tag {
   padding: 0.2rem 0.55rem;
   border-radius: 999px;
-  background: color-mix(in srgb, var(--surface-soft) 80%, transparent);
+  background: color-mix(in srgb, var(--surface-soft) 84%, transparent);
   font-size: 0.78rem;
 }
 
@@ -375,7 +409,7 @@ h1 {
 }
 
 .bookmark-btn.active {
-  color: var(--accent-2);
+  color: var(--accent-3);
 }
 
 .project-stat {
@@ -395,6 +429,10 @@ h1 {
 .featured-card {
   background:
     linear-gradient(160deg, color-mix(in srgb, var(--surface) 94%, transparent), color-mix(in srgb, var(--surface-soft) 84%, transparent));
+}
+
+.featured-meta strong {
+  color: color-mix(in srgb, var(--accent-2) 72%, var(--text) 28%);
 }
 
 .featured-meta {
@@ -430,13 +468,23 @@ h1 {
 
 .reveal {
   opacity: 0;
-  transform: translateY(14px);
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  transform: translate3d(0, 16px, 0);
+  transition: opacity var(--motion-medium) var(--motion-ease), transform var(--motion-medium) var(--motion-ease);
+  will-change: transform, opacity;
 }
 
 .reveal.in-view {
   opacity: 1;
-  transform: translateY(0);
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
+}
+
+.hero-copy {
+  animation: heroFadeUp 560ms var(--motion-ease) both;
+}
+
+.hero-panel {
+  animation: heroFadeUp 700ms var(--motion-ease) both;
 }
 
 @keyframes float {
@@ -446,6 +494,28 @@ h1 {
   }
   50% {
     transform: translate3d(0, 8px, 0);
+  }
+}
+
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes cardRiseIn {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
   }
 }
 
@@ -518,6 +588,11 @@ h1 {
     background: color-mix(in srgb, var(--surface-soft) 80%, transparent);
   }
 
+  .mobile-nav a.active-nav-link {
+    background: color-mix(in srgb, var(--surface-soft) 84%, transparent);
+    color: var(--accent-2);
+  }
+
   .mobile-nav[hidden] {
     display: none;
   }
@@ -528,8 +603,19 @@ h1 {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .hero-copy,
+  .hero-panel,
+  .reveal,
+  .card-entrance,
   .mobile-nav {
-    transition: none;
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
   }
 }
 

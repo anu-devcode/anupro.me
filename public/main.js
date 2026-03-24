@@ -1,5 +1,4 @@
 const projectsGrid = document.getElementById('projectsGrid');
-const featuredGrid = document.getElementById('featuredGrid');
 const themeToggle = document.getElementById('themeToggle');
 const navToggle = document.getElementById('navToggle');
 const mobileNav = document.getElementById('mobileNav');
@@ -106,6 +105,52 @@ if (navToggle && mobileNav) {
   });
 }
 
+const sectionNavLinks = Array.from(document.querySelectorAll('.main-nav a[href^="#"], .mobile-nav a[href^="#"]'));
+const sectionTargets = Array.from(document.querySelectorAll('main section[id]'));
+
+function setActiveNavLink(sectionId) {
+  sectionNavLinks.forEach((link) => {
+    const href = link.getAttribute('href');
+    const isActive = href === `#${sectionId}`;
+    link.classList.toggle('active-nav-link', isActive);
+    link.setAttribute('aria-current', isActive ? 'page' : 'false');
+  });
+}
+
+function syncActiveNavFromHash() {
+  const hash = window.location.hash || '';
+  if (!hash.startsWith('#')) return;
+  const id = hash.slice(1);
+  if (sectionTargets.some((section) => section.id === id)) {
+    setActiveNavLink(id);
+  }
+}
+
+if (sectionNavLinks.length && sectionTargets.length) {
+  const sectionObserver = new IntersectionObserver(
+    (entries) => {
+      const visible = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+      if (visible.length) {
+        const activeId = visible[0].target.getAttribute('id');
+        if (activeId) {
+          setActiveNavLink(activeId);
+        }
+      }
+    },
+    {
+      threshold: [0.35, 0.55],
+      rootMargin: '-12% 0px -48% 0px'
+    }
+  );
+
+  sectionTargets.forEach((section) => sectionObserver.observe(section));
+  syncActiveNavFromHash();
+  window.addEventListener('hashchange', syncActiveNavFromHash);
+}
+
 function escapeHtml(value) {
   return String(value)
     .replaceAll('&', '&amp;')
@@ -166,11 +211,11 @@ function renderProjects(projects) {
   heroProjectCount.textContent = String(projects.length || 0);
 
   projectsGrid.innerHTML = projects
-    .map((project) => {
+    .map((project, index) => {
       const tags = (project.tags || []).map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`).join('');
       const isBookmarked = bookmarks.has(project.id);
       return `
-        <article class="project-card">
+        <article class="project-card card-entrance" style="--stagger:${index % 8}">
           <div class="card-head">
             <h3>${escapeHtml(project.name)}</h3>
             <span class="platform-pill">${escapeHtml(project.platform || 'Custom')}</span>
@@ -217,31 +262,6 @@ function renderProjects(projects) {
   });
 }
 
-function renderFeatured(projects) {
-  const featured = projects.filter((project) => project.featured).slice(0, 3);
-
-  featuredGrid.innerHTML = featured.length
-    ? featured
-        .map(
-          (project) => `
-        <article class="featured-card">
-          <h3>${escapeHtml(project.name)}</h3>
-          <p>${escapeHtml(project.description || '')}</p>
-          <div class="featured-meta">
-            <p><strong>Problem:</strong> ${escapeHtml(project.problem || 'A real-world product challenge.')}</p>
-            <p><strong>Impact:</strong> ${escapeHtml(project.impact || 'Improved quality and user outcomes.')}</p>
-            <p><strong>Metric:</strong> ${escapeHtml(project.metrics || 'Performance and product growth oriented.')}</p>
-          </div>
-          <div class="card-actions">
-            <a class="btn primary" href="${escapeHtml(project.url)}" target="_blank" rel="noreferrer">Open Project</a>
-          </div>
-        </article>
-      `
-        )
-        .join('')
-    : '<p>No featured projects configured yet.</p>';
-}
-
 async function loadProjects() {
   try {
     const response = await fetch('/api/projects');
@@ -253,10 +273,8 @@ async function loadProjects() {
     applySettings(settings);
     heroProjectClicks.textContent = String(stats.totalProjectClicks || 0);
     renderProjects(projects);
-    renderFeatured(projects);
   } catch (error) {
     projectsGrid.innerHTML = '<p>Could not load projects right now.</p>';
-    featuredGrid.innerHTML = '';
   }
 }
 
@@ -268,7 +286,10 @@ const observer = new IntersectionObserver(
       }
     });
   },
-  { threshold: 0.16 }
+  {
+    threshold: 0.18,
+    rootMargin: '0px 0px -8% 0px'
+  }
 );
 
 document.querySelectorAll('.reveal').forEach((node) => observer.observe(node));

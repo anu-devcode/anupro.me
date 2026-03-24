@@ -23,7 +23,7 @@
 }
 
 .help-card {
-  border: 1px solid color-mix(in srgb, var(--surface-soft) 74%, white 8%);
+  border: 1px solid var(--border-soft);
   background: color-mix(in srgb, var(--surface) 95%, transparent);
   border-radius: 18px;
   padding: 1rem;
@@ -42,11 +42,20 @@
 }
 
 .faq-list details {
-  border: 1px solid color-mix(in srgb, var(--surface-soft) 74%, white 8%);
+  border: 1px solid var(--border-soft);
   background: color-mix(in srgb, var(--surface) 95%, transparent);
   border-radius: 12px;
   padding: 0.8rem 0.9rem;
   box-shadow: var(--shadow);
+  transition: border-color 180ms ease, transform 180ms ease;
+}
+
+.faq-list details[open] {
+  border-color: color-mix(in srgb, var(--accent-2) 42%, white 10%);
+}
+
+.faq-list details:hover {
+  transform: translateY(-1px);
 }
 
 .faq-list summary {
@@ -84,17 +93,20 @@
 .contact-form select {
   width: 100%;
   border-radius: 10px;
-  border: 1px solid color-mix(in srgb, var(--surface-soft) 74%, white 10%);
+  border: 1px solid var(--border-soft);
   background: color-mix(in srgb, var(--surface-soft) 68%, transparent);
   color: var(--text);
   padding: 0.62rem 0.8rem;
   font: inherit;
+  transition: border-color 180ms ease, box-shadow 180ms ease;
 }
 
 .contact-form input:focus,
 .contact-form textarea:focus,
 .contact-form select:focus {
   outline: 2px solid var(--ring);
+  border-color: color-mix(in srgb, var(--accent-2) 44%, white 8%);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent-2) 14%, transparent);
 }
 
 .status-text {
@@ -104,6 +116,7 @@
 
 .support-card a {
   color: var(--accent-2);
+  text-decoration-color: color-mix(in srgb, var(--accent-2) 50%, transparent);
 }
 
 @media (max-width: 920px) {

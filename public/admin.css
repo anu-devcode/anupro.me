@@ -10,7 +10,7 @@
 }
 
 .admin-card {
-  border: 1px solid color-mix(in srgb, var(--surface-soft) 74%, white 8%);
+  border: 1px solid var(--border-soft);
   background: color-mix(in srgb, var(--surface) 96%, transparent);
   border-radius: 18px;
   padding: 1.2rem;
@@ -37,18 +37,20 @@ textarea,
 select {
   width: 100%;
   border-radius: 10px;
-  border: 1px solid color-mix(in srgb, var(--surface-soft) 74%, white 10%);
+  border: 1px solid var(--border-soft);
   background: color-mix(in srgb, var(--surface-soft) 68%, transparent);
   color: var(--text);
   padding: 0.62rem 0.8rem;
   font: inherit;
+  transition: border-color 180ms ease, box-shadow 180ms ease;
 }
 
 input:focus,
 textarea:focus,
 select:focus {
   outline: 2px solid var(--ring);
-  border-color: color-mix(in srgb, var(--accent) 40%, white 4%);
+  border-color: color-mix(in srgb, var(--accent-2) 46%, white 6%);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent-2) 16%, transparent);
 }
 
 .admin-head,
@@ -69,7 +71,7 @@ select:focus {
 }
 
 .card-subpanel {
-  border: 1px solid color-mix(in srgb, var(--surface-soft) 74%, white 8%);
+  border: 1px solid var(--border-soft);
   border-radius: 14px;
   padding: 0.9rem;
   background: color-mix(in srgb, var(--surface) 96%, transparent);
@@ -82,7 +84,7 @@ select:focus {
 }
 
 .project-row {
-  border: 1px solid color-mix(in srgb, var(--surface-soft) 74%, white 8%);
+  border: 1px solid var(--border-soft);
   border-radius: 12px;
   padding: 0.7rem;
   background: color-mix(in srgb, var(--surface-soft) 68%, transparent);
@@ -109,11 +111,17 @@ select:focus {
 
 .mini-btn {
   border-radius: 8px;
-  border: 1px solid color-mix(in srgb, var(--surface-soft) 74%, white 8%);
+  border: 1px solid var(--border-soft);
   background: color-mix(in srgb, var(--surface) 95%, transparent);
   color: var(--text);
   padding: 0.35rem 0.58rem;
   cursor: pointer;
+  transition: transform 160ms ease, border-color 160ms ease;
+}
+
+.mini-btn:hover {
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--accent-2) 42%, white 8%);
 }
 
 .inline-check {
@@ -127,7 +135,7 @@ select:focus {
 }
 
 .error-text {
-  color: #ff7f7f;
+  color: color-mix(in srgb, var(--accent-3) 72%, #ff6f6f 28%);
   min-height: 1.2rem;
 }
 
@@ -145,7 +153,7 @@ select:focus {
 .messages-panel {
   margin-top: 1rem;
   padding-top: 0.9rem;
-  border-top: 1px dashed color-mix(in srgb, var(--surface-soft) 74%, white 8%);
+  border-top: 1px dashed var(--border-soft);
 }
 
 .stats-grid {
@@ -156,7 +164,7 @@ select:focus {
 }
 
 .stat-card {
-  border: 1px solid color-mix(in srgb, var(--surface-soft) 74%, white 8%);
+  border: 1px solid var(--border-soft);
   border-radius: 12px;
   background: color-mix(in srgb, var(--surface-soft) 66%, transparent);
   padding: 0.6rem;
@@ -187,20 +195,20 @@ select:focus {
   border-radius: 999px;
   padding: 0.2rem 0.55rem;
   font-size: 0.75rem;
-  border: 1px solid color-mix(in srgb, var(--surface-soft) 74%, white 8%);
+  border: 1px solid var(--border-soft);
   background: color-mix(in srgb, var(--surface-soft) 68%, transparent);
 }
 
 .inquiry-pill.support {
-  color: #67d4ff;
+  color: color-mix(in srgb, var(--accent-2) 80%, white 20%);
 }
 
 .inquiry-pill.business {
-  color: #ffd084;
+  color: color-mix(in srgb, var(--accent-3) 76%, white 24%);
 }
 
 .inquiry-pill.dispute {
-  color: #ff9d9d;
+  color: #f87171;
 }
 
 a.mini-btn {

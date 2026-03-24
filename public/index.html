@@ -27,8 +27,19 @@
         <a href="/help">Help Center</a>
         <a href="#connect">Connect</a>
       </nav>
-      <button id="themeToggle" class="ghost-btn" aria-label="Toggle color mode">Light</button>
+      <div class="header-actions">
+        <button id="themeToggle" class="ghost-btn" aria-label="Toggle color mode">Light</button>
+        <button id="navToggle" class="ghost-btn nav-toggle" aria-label="Toggle navigation" aria-controls="mobileNav" aria-expanded="false">Menu</button>
+      </div>
     </header>
+
+    <nav id="mobileNav" class="mobile-nav" aria-label="Mobile Primary" hidden>
+      <a href="#projects">Projects</a>
+      <a href="#featured">Highlights</a>
+      <a href="#about">About</a>
+      <a href="/help">Help Center</a>
+      <a href="#connect">Connect</a>
+    </nav>
 
     <main id="top">
       <section class="hero section reveal">

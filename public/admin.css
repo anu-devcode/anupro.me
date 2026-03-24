@@ -3,6 +3,28 @@
   place-items: start center;
   min-height: 100vh;
   padding: 1.6rem 0;
+  background:
+    radial-gradient(circle at 10% 10%, rgba(98, 144, 255, 0.22), transparent 34%),
+    radial-gradient(circle at 86% 0%, rgba(167, 106, 255, 0.2), transparent 30%),
+    linear-gradient(180deg, #090f24, #060a1a 60%, #050914);
+  position: relative;
+}
+
+.admin-body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.08;
+  background-image:
+    linear-gradient(to right, rgba(175, 194, 255, 0.18) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(175, 194, 255, 0.16) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+.admin-shell {
+  position: relative;
+  z-index: 1;
 }
 
 .admin-shell {

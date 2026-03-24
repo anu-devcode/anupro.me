@@ -1,3 +1,15 @@
+.help-body {
+  background:
+    radial-gradient(circle at 14% 6%, rgba(108, 184, 255, 0.14), transparent 30%),
+    radial-gradient(circle at 82% 10%, rgba(168, 135, 255, 0.18), transparent 34%),
+    radial-gradient(circle at 50% 100%, rgba(129, 244, 209, 0.1), transparent 35%),
+    linear-gradient(180deg, #0f1124, #100a1f 55%, #0a0d1c);
+}
+
+.help-body .noise-layer {
+  opacity: 0.03;
+}
+
 .help-main,
 .site-footer,
 .site-header {
